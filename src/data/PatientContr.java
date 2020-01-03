@@ -1,12 +1,20 @@
 package data;
 
+import exceptions.NotAValidValue;
+
 import java.math.BigDecimal;
 
 final public class PatientContr {
 
     private final BigDecimal patientContr;
 
-    public PatientContr(BigDecimal code) {
+    public PatientContr(BigDecimal code) throws NotAValidValue {
+        if (code == null) {
+            throw new NullPointerException("A value class must not be null.");
+        }
+        if (!(code.compareTo(BigDecimal.ZERO) >= 0 && code.compareTo(BigDecimal.valueOf(100)) <= 0)) {
+            throw new NotAValidValue("Code is not a HealthCardID.");
+        }
         this.patientContr = code;
     }
 

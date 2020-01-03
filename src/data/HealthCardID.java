@@ -1,15 +1,16 @@
 package data;
 
+import exceptions.NotAValidValue;
+
 final public class HealthCardID {
 
 
     private final String personalID;
-    private static String regex = ".*";
-
-    public HealthCardID(String code) throws Exception {
-        if (code == null) { throw new NullPointerException("A value class must not be null!"); }
-        if (!code.matches(regex)) { throw new Exception("Code does not match inteded class"); }
-        // TODO: Make an exception splicitally for this!! Also test
+    private static String regex = "(Jo)|(Tu)";
+    //TODO : Change regex so it makes sense. Note that tests will have to change accordingly.
+    public HealthCardID(String code) throws NotAValidValue {
+        if (code == null) { throw new NullPointerException("A value class must not be null."); }
+        if (!code.matches(regex)) { throw new NotAValidValue("Code is not a HealthCardID."); }
         this.personalID = code;
     }
 

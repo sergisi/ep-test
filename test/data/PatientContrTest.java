@@ -22,6 +22,8 @@ class PatientContrTest {
         thdInstance = new PatientContr(sndValue);
     }
 
+
+
     @Test
     void getPatientContr() {
         assertEquals(fstValue, fstInstance.getPatientContr());

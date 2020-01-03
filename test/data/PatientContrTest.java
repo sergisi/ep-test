@@ -1,12 +1,13 @@
 package data;
 
+import exceptions.NotAValidValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PatientContrTest {
 
@@ -14,7 +15,7 @@ class PatientContrTest {
     BigDecimal fstValue, sndValue;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws NotAValidValue {
         fstValue = new BigDecimal("0.3");
         sndValue = new BigDecimal("0.96");
         fstInstance = new PatientContr(fstValue);
@@ -23,6 +24,11 @@ class PatientContrTest {
     }
 
 
+    @Test
+    void constructorExceptions() {
+        assertThrows(NullPointerException.class, () -> new PatientContr(null));
+        assertThrows(NotAValidValue.class, () -> new PatientContr(BigDecimal.valueOf(-1)));
+    }
 
     @Test
     void getPatientContr() {

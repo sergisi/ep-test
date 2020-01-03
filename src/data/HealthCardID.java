@@ -7,10 +7,15 @@ final public class HealthCardID {
 
     private final String personalID;
     private static String regex = "(Jo)|(Tu)";
+
     //TODO : Change regex so it makes sense. Note that tests will have to change accordingly.
     public HealthCardID(String code) throws NotAValidValue {
-        if (code == null) { throw new NullPointerException("A value class must not be null."); }
-        if (!code.matches(regex)) { throw new NotAValidValue("Code is not a HealthCardID."); }
+        if (code == null) {
+            throw new NullPointerException("A value class must not be null.");
+        }
+        if (!code.matches(regex)) {
+            throw new NotAValidValue("Code is not a HealthCardID.");
+        }
         this.personalID = code;
     }
 

@@ -2,15 +2,19 @@ package pharmacy;
 
 import java.math.BigDecimal;
 import data.ProductID;
+import exceptions.EmptyDescriptionException;
 
 public class ProductSpecification {
     private final ProductID upccode;
     private final String description;
     private BigDecimal price;
 
-    public ProductSpecification(ProductID upccode, String description, BigDecimal price) {
+
+    public ProductSpecification(ProductID upccode, String description, BigDecimal price) throws EmptyDescriptionException{
         this.upccode = upccode;
+        if(description.equals("")) throw new EmptyDescriptionException();
         this.description = description;
+        if(price == null) throw new NullPointerException("Price can not be null");
         this.price = price;
     }
 
@@ -18,7 +22,8 @@ public class ProductSpecification {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(BigDecimal price) throws NullPointerException{
+        if(price == null) throw new NullPointerException("Price can't be null");
         this.price = price;
     }
 

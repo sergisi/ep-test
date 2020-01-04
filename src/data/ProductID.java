@@ -2,7 +2,7 @@ package data;
 
 import exceptions.NotAValidValue;
 
-public class ProductID {
+final public class ProductID {
 
 
     private final String productID;
@@ -27,7 +27,7 @@ public class ProductID {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        data.ProductID prodID = (data.ProductID) o;
+        ProductID prodID = (ProductID) o;
         return productID.equals(prodID.productID);
     }
 

@@ -28,22 +28,22 @@ class DispensingTest {
         Date initDateError = sdf.parse(initDayError);
         Date initDate = sdf.parse(initDay);
         Date finalDate = sdf.parse(finalDay);
-        HashMap<ProductID,MedicineDispensingLine> medicines = new HashMap<>();
+        HashMap<ProductID, MedicineDispensingLine> medicines = new HashMap<>();
         idProduct1 = new ProductID("Prod1");
         idProduct2 = new ProductID("Prod2");
         MedicineDispensingLine med1 = new MedicineDispensingLine(idProduct1);
         MedicineDispensingLine med2 = new MedicineDispensingLine(idProduct2);
-        medicines.put(med1.getMed(),med1);
-        medicines.put(med2.getMed(),med2);
-        toDispenseError = new Dispensing((byte)10,initDateError,finalDate,medicines);
-        toDispense = new Dispensing((byte)10,initDate,finalDate,medicines);
+        medicines.put(med1.getMed(), med1);
+        medicines.put(med2.getMed(), med2);
+        toDispenseError = new Dispensing((byte) 10, initDateError, finalDate, medicines);
+        toDispense = new Dispensing((byte) 10, initDate, finalDate, medicines);
 
     }
 
     @Test
-    void dispensingEnabled() throws DispensingNotAvailableException, ParseException {
+    void dispensingEnabled() throws DispensingNotAvailableException {
         assertThrows(DispensingNotAvailableException.class, () -> toDispenseError.dispensingEnabled());
-        assertEquals(toDispense.dispensingEnabled(),true);
+        assertTrue(toDispense.dispensingEnabled());
     }
 
     @Test

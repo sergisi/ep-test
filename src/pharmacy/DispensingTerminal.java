@@ -1,5 +1,8 @@
 package pharmacy;
-import data.*;
+
+import data.HealthCardID;
+import data.PatientContr;
+import data.ProductID;
 import exceptions.*;
 import services.HealthCardReader;
 import services.NationalHealthService;
@@ -32,7 +35,8 @@ public class DispensingTerminal {
         sale = new Sale();
     }
 
-    public void enterProduct(ProductID pID) throws ProductIDException, ConnectException, SaleClosedException {
+    public void enterProduct(ProductID pID) throws ProductIDException, ConnectException, SaleClosedException,
+            MedicineAlreadyDispencedException, MedicineNotInDispensingListException {
         ProductSpecification productSpecification = nationalHealthService.getProductSpecific(pID);
         sale.addLine(pID, productSpecification.getPrice(), contr);
         activeePrescription.setProductAsDispensed(pID);
@@ -43,7 +47,7 @@ public class DispensingTerminal {
         nationalHealthService.updateePrescription(hid, activeePrescription);
     }
 
-    public void realizePayment(BigDecimal quantity){
+    public void realizePayment(BigDecimal quantity) {
         //Slime Quest: Optional quest!
     }
 
@@ -57,4 +61,14 @@ public class DispensingTerminal {
         // the next 5 years
         // TODO : do
     }
+
+    public Dispensing getActiveePrescription() {
+        return activeePrescription;
+    }
+
+    public Sale getSale() {
+        return sale;
+    }
+
+
 }

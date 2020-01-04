@@ -6,7 +6,7 @@ final public class ProductID {
 
 
     private final String productID;
-    private static String regex = "(Prod1)|(Prod2)";
+    private static String regex = "(Prod1)|(Prod2)|(Prod3)";
     //TODO : Change regex so it makes sense. Note that tests will have to change accordingly.
 
     public ProductID(String code) throws NotAValidValue {

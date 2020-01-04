@@ -11,10 +11,12 @@ public class ProductSpecification {
 
 
     public ProductSpecification(ProductID upccode, String description, BigDecimal price) throws EmptyDescriptionException{
-        this.upccode = upccode;
+        if(upccode == null) throw new NullPointerException("Product id can't be null");
         if(description.equals("")) throw new EmptyDescriptionException();
-        this.description = description;
         if(price == null) throw new NullPointerException("Price can not be null");
+
+        this.upccode = upccode;
+        this.description = description;
         this.price = price;
     }
 

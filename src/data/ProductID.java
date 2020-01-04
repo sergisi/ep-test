@@ -14,7 +14,7 @@ final public class ProductID {
             throw new NullPointerException("A value class must not be null.");
         }
         if (!code.matches(regex)) {
-            throw new NotAValidValue("Code is not a HealthCardID.");
+            throw new NotAValidValue("Code is not a product ID.");
         }
         this.productID = code;
     }

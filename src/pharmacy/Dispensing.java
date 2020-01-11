@@ -1,92 +1,93 @@
 package pharmacy;
 
+import data.ProductID;
 import exceptions.DispensingNotAvailableException;
-import data.*;
 import exceptions.MedicineAlreadyDispencedException;
 import exceptions.MedicineNotInDispensingListException;
 import exceptions.NotAllMedicamentsDispensedException;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Objects;
 
 
 public class Dispensing {
     private byte nOrder;
     private Date initDate, finalDate;
-    private boolean isCompleated;
-    HashMap<ProductID,MedicineDispensingLine> medicines;
+    private boolean isCompleted;
+    HashMap<ProductID, MedicineDispensingLine> medicines;
 
 
-    public Dispensing(byte nOrder, Date initDate, Date finalDate, HashMap<ProductID,MedicineDispensingLine> medicines) {
-        this.nOrder=nOrder;
-        this.initDate=initDate;
-        this.finalDate=finalDate;
-        this.isCompleated=false;
-        this.medicines=medicines;
+    public Dispensing(byte nOrder, Date initDate, Date finalDate, HashMap<ProductID, MedicineDispensingLine> medicines) {
+        this.nOrder = nOrder;
+        this.initDate = initDate;
+        this.finalDate = finalDate;
+        this.isCompleted = false;
+        this.medicines = medicines;
     }
 
-    public boolean dispensingEnabled() throws DispensingNotAvailableException{
+    public boolean dispensingEnabled() throws DispensingNotAvailableException {
         Date todayDate = new Date();
-        if(todayDate.after(initDate)){
+        if (todayDate.after(initDate)) {
             return true;
-        }else{
-            throw new DispensingNotAvailableException("Today's Date is before than the start of the treatment one");
+        } else {
+            throw new DispensingNotAvailableException("Today's Date is not in the period of treatment.");
         }
     }
 
     public void setProductAsDispensed(ProductID prodID) throws MedicineNotInDispensingListException, MedicineAlreadyDispencedException {
-        if(medicines.containsKey(prodID)){
+        if (medicines.containsKey(prodID)) {
             MedicineDispensingLine medicament = medicines.get(prodID);
-            if(!medicament.getAcquired()){
+            if (!medicament.getAcquired()) {
                 medicament.setAcquired(true);
-            }else{
+            } else {
                 throw new MedicineAlreadyDispencedException("This medicine has been already dispensed");
             }
-        }else{
+        } else {
             throw new MedicineNotInDispensingListException("This medicine isn't in the dispensing list of the patient");
         }
     }
 
-    public boolean getCompleted(){
-        return this.isCompleated;
+    public boolean getCompleted() {
+        return this.isCompleted;
     }
 
     public void setCompleated() throws NotAllMedicamentsDispensedException {
         Collection<MedicineDispensingLine> listOfMedicines = medicines.values();
-        Iterator<MedicineDispensingLine> iterMedicines = listOfMedicines.iterator();
-        while(iterMedicines.hasNext()){
-            if(iterMedicines.next().getAcquired()!=true){
+        for (MedicineDispensingLine listOfMedicine : listOfMedicines) {
+            if (!listOfMedicine.getAcquired()) {
                 throw new NotAllMedicamentsDispensedException("Not all medicaments have been dispensed");
             }
         }
-        this.isCompleated=true;
+        this.isCompleted = true;
     }
-    // TODO: rest of the getters and setters (maybe for tests)
 
-    public byte getnOrder(){
+    public byte getnOrder() {
         return this.nOrder;
     }
 
-    public void setnOrder(byte nOrder){
-        this.nOrder=nOrder;
+    public void setnOrder(byte nOrder) {
+        this.nOrder = nOrder;
     }
 
-    public Date getInitDate(){
+    public Date getInitDate() {
         return this.initDate;
     }
 
-    public void setInitDate(Date initDate){
-        this.initDate=initDate;
+    public void setInitDate(Date initDate) {
+        this.initDate = initDate;
     }
 
-    public Date getFinalDate(){
+    public Date getFinalDate() {
         return this.finalDate;
     }
 
-    public void setFinalDate(Date finalDate){
-        this.finalDate=finalDate;
+    public void setFinalDate(Date finalDate) {
+        this.finalDate = finalDate;
     }
 
-    public HashMap<ProductID,MedicineDispensingLine> getMedicines(){
+    public HashMap<ProductID, MedicineDispensingLine> getMedicines() {
         return this.medicines;
     }
 
@@ -94,4 +95,21 @@ public class Dispensing {
         this.medicines = medicines;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Dispensing that = (Dispensing) o;
+        boolean ret = medicines.equals(that.medicines);
+        return nOrder == that.nOrder &&
+                isCompleted == that.isCompleted &&
+                initDate.equals(that.initDate) &&
+                finalDate.equals(that.finalDate) &&
+                medicines.equals(that.medicines);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nOrder, initDate, finalDate, isCompleted, medicines);
+    }
 }

@@ -2,33 +2,46 @@ package pharmacy;
 
 import data.ProductID;
 
-import java.math.BigDecimal;
+import java.util.Objects;
 
-public class MedicineDispensingLine{
+public class MedicineDispensingLine {
 
     private ProductID med;
     private boolean acquired;
 
 
-    public MedicineDispensingLine(ProductID med){
-        this.acquired=false;
-        this.med=med;
+    public MedicineDispensingLine(ProductID med) {
+        this.acquired = false;
+        this.med = med;
     }
 
-    public boolean getAcquired(){
+    public boolean getAcquired() {
         return this.acquired;
     }
 
-    public void setAcquired(boolean acquired){
-        this.acquired=acquired;
+    public void setAcquired(boolean acquired) {
+        this.acquired = acquired;
     }
 
-    public ProductID getMed(){
+    public ProductID getMed() {
         return this.med;
     }
 
-    public void setMed(ProductID acquired){
-        this.med=med;
+    public void setMed(ProductID med) {
+        this.med = med;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MedicineDispensingLine that = (MedicineDispensingLine) o;
+        return acquired == that.acquired &&
+                med.equals(that.med);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(med, acquired);
+    }
 }

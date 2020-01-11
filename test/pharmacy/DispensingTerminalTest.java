@@ -4,8 +4,11 @@ import data.ProductID;
 import exceptions.*;
 import mocks.HealthCardReaderMock;
 import mocks.NationalHealthMock;
+import mocks.SalesHistoryMock;
+import mocks.WarehouseMock;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import payment.CashPayment;
 
 import java.math.BigDecimal;
 
@@ -15,11 +18,15 @@ class DispensingTerminalTest {
 
     private DispensingTerminal dt;
     private NationalHealthMock snsmock;
+    private WarehouseMock warehouseMock;
+    private SalesHistoryMock salesHistoryMock;
 
     @BeforeEach
     void setUp() {
         snsmock = new NationalHealthMock();
-        dt = new DispensingTerminal(new HealthCardReaderMock(), snsmock);
+        warehouseMock = new WarehouseMock();
+        salesHistoryMock = new SalesHistoryMock();
+        dt = new DispensingTerminal(new HealthCardReaderMock(), snsmock, warehouseMock, salesHistoryMock);
     }
 
     @Test
@@ -50,13 +57,35 @@ class DispensingTerminalTest {
     }
 
     @Test
-    void finalizeSale() throws NotAValidValue, DispensingNotAvailableException, MedicineAlreadyDispencedException, MedicineNotInDispensingListException, ConnectException, ProductIDException, SaleClosedException, NotValidePrescriptionException, HealthCardException, PatientIDException {
+    void finalizeSale() throws NotAValidValue, DispensingNotAvailableException, MedicineAlreadyDispencedException,
+            MedicineNotInDispensingListException, ConnectException, ProductIDException, SaleClosedException,
+            NotValidePrescriptionException, HealthCardException, PatientIDException {
         dt.getePrescription('a');
         dt.initNewSale();
         dt.enterProduct(new ProductID("Prod1"));
         dt.enterProduct(new ProductID("Prod2"));
         dt.finalizeSale();
+
         assertEquals(new BigDecimal("12.100"), dt.getSale().getAmount());
+    }
+
+    @Test
+    void realizePayment() throws PaymentException, SaleNotClosedException, ConnectException,
+            InsufficientExistences, BrokenServicesException, NotValidePrescriptionException, HealthCardException,
+            PatientIDException, DispensingNotAvailableException, NotAValidValue, MedicineAlreadyDispencedException,
+            MedicineNotInDispensingListException, ProductIDException, SaleClosedException {
+        dt.getePrescription('a');
+        dt.initNewSale();
+        dt.enterProduct(new ProductID("Prod1"));
+        assertThrows(SaleNotClosedException.class, () -> dt.realizePayment(BigDecimal.TEN));
+        dt.enterProduct(new ProductID("Prod2"));
+        dt.finalizeSale();
+        assertThrows(QuantityMinorThanImport.class, () -> dt.realizePayment(BigDecimal.valueOf(6)));
+        dt.realizePayment(new BigDecimal("13.000"));
+        CashPayment cashPayment = (CashPayment) dt.getPayment();
+        assertEquals(new BigDecimal("0.900"), cashPayment.change());
+        assertTrue(warehouseMock.isWascalled());
+        assertTrue(salesHistoryMock.isCalled());
         assertTrue(snsmock.wasCalledUpdate());
     }
 }

@@ -4,8 +4,12 @@ import data.HealthCardID;
 import data.PatientContr;
 import data.ProductID;
 import exceptions.*;
+import payment.CashPayment;
+import payment.Payment;
 import services.HealthCardReader;
 import services.NationalHealthService;
+import services.SalesHistory;
+import services.Warehouse;
 
 import java.math.BigDecimal;
 
@@ -17,13 +21,20 @@ public class DispensingTerminal {
     private Sale sale;
     private PatientContr contr;
     private HealthCardID hid;
+    private Warehouse warehouse;
+    private SalesHistory salesHistory;
+    private Payment payment;
 
-    public DispensingTerminal(HealthCardReader healthReader, NationalHealthService sns) {
+    public DispensingTerminal(HealthCardReader healthReader, NationalHealthService sns,
+                              Warehouse warehouse, SalesHistory salesHistory) {
         healthCardReader = healthReader;
         nationalHealthService = sns;
+        this.warehouse = warehouse;
+        this.salesHistory = salesHistory;
     }
 
-    public void getePrescription(char option) throws ConnectException, NotValidePrescriptionException, PatientIDException, HealthCardException {
+    public void getePrescription(char option) throws ConnectException, NotValidePrescriptionException,
+            PatientIDException, HealthCardException {
         hid = healthCardReader.getHealthCardID();
         activeePrescription = nationalHealthService.getePrescrption(hid);
         contr = nationalHealthService.getPatientContr(hid);
@@ -44,11 +55,18 @@ public class DispensingTerminal {
 
     public void finalizeSale() throws SaleClosedException, ConnectException {
         sale.calculateFinalAmount();
+    }
+
+    public void realizePayment(BigDecimal quantity) throws ConnectException, PaymentException,
+            SaleNotClosedException, BrokenServicesException, InsufficientExistences {
+        if (!sale.isClosed()) throw new SaleNotClosedException();
+        payment = new CashPayment(quantity, sale, warehouse, salesHistory);
+        payment.pay();
         nationalHealthService.updateePrescription(hid, activeePrescription);
     }
 
-    public void realizePayment(BigDecimal quantity) {
-        //Slime Quest: Optional quest!
+    public Payment getPayment() {
+        return payment;
     }
 
     public void realizePayment() {

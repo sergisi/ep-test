@@ -4,7 +4,7 @@ import exceptions.NotAValidValue;
 
 import java.math.BigDecimal;
 
-final public class PatientContr {
+final public class PatientContr implements DataInterface<BigDecimal> {
 
     private final BigDecimal patientContr;
 
@@ -38,5 +38,10 @@ final public class PatientContr {
     @Override
     public String toString() {
         return "PatientContr{" + "patient contribution='" + patientContr + '\'' + '}';
+    }
+
+    @Override
+    public BigDecimal getValue() {
+        return getPatientContr();
     }
 }

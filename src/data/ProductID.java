@@ -2,7 +2,9 @@ package data;
 
 import exceptions.NotAValidValue;
 
-final public class ProductID {
+import javax.xml.crypto.Data;
+
+final public class ProductID implements DataInterface<String> {
 
 
     private final String productID;
@@ -39,5 +41,10 @@ final public class ProductID {
     @Override
     public String toString() {
         return "ProductID{" + "product code='" + productID + '\'' + '}';
+    }
+
+    @Override
+    public String getValue() {
+        return getProductID();
     }
 }

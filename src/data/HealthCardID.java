@@ -2,7 +2,7 @@ package data;
 
 import exceptions.NotAValidValue;
 
-final public class HealthCardID {
+final public class HealthCardID implements DataInterface<String>{
 
 
     private final String personalID;
@@ -39,5 +39,10 @@ final public class HealthCardID {
     @Override
     public String toString() {
         return "HealthCardID{" + "personal code='" + personalID + '\'' + '}';
+    }
+
+    @Override
+    public String getValue() {
+        return getPersonalID();
     }
 }

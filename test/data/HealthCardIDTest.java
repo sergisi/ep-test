@@ -6,13 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class HealthCardIDTest {
+class HealthCardIDTest extends AbstractData<String, HealthCardID> implements DataTest{
 
-    private HealthCardID fstInstance, sndInstance, thdInstance;
-    String fstValue, sndValue;
 
     @BeforeEach
-    void setUp() throws NotAValidValue {
+    public void setUp() throws NotAValidValue {
         fstValue = "Jo";
         sndValue = "Tu";
         fstInstance = new HealthCardID(fstValue);
@@ -21,32 +19,13 @@ class HealthCardIDTest {
     }
 
     @Test
-    void constructorExceptions() {
+    public void constructorExceptions() {
         assertThrows(NullPointerException.class, () -> new HealthCardID(null));
         assertThrows(NotAValidValue.class, () -> new HealthCardID("tt"));
     }
 
     @Test
-    void getHealthCardId() {
-        assertEquals(fstValue, fstInstance.getPersonalID());
-        assertEquals(fstValue, sndInstance.getPersonalID());
-        assertEquals(sndValue, thdInstance.getPersonalID());
-    }
-
-    @Test
-    void testEquals() {
-        assertEquals(fstInstance, fstInstance);
-        assertEquals(sndInstance, sndInstance);
-        assertNotEquals(sndInstance, thdInstance);
-    }
-
-    @Test
-    void testHashCode() {
-        assertEquals(fstInstance.getPersonalID().hashCode(), fstInstance.hashCode());
-    }
-
-    @Test
-    void testToString() {
+    public void testToString() {
         assertEquals("HealthCardID{personal code='Jo'}", fstInstance.toString());
     }
 

@@ -6,13 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ProductIDTest {
-
-    private ProductID fstInstance, sndInstance, thdInstance;
-    String fstValue, sndValue;
+class ProductIDTest extends AbstractData<String, ProductID> implements DataTest {
 
     @BeforeEach
-    void setUp() throws NotAValidValue {
+    public void setUp() throws NotAValidValue {
         fstValue = "Prod1";
         sndValue = "Prod2";
         fstInstance = new ProductID(fstValue);
@@ -21,32 +18,13 @@ class ProductIDTest {
     }
 
     @Test
-    void constructorExceptions() {
+    public void constructorExceptions() {
         assertThrows(NullPointerException.class, () -> new ProductID(null));
         assertThrows(NotAValidValue.class, () -> new ProductID("tt"));
     }
 
     @Test
-    void getHealthCardId() {
-        assertEquals(fstValue, fstInstance.getProductID());
-        assertEquals(fstValue, sndInstance.getProductID());
-        assertEquals(sndValue, thdInstance.getProductID());
-    }
-
-    @Test
-    void testEquals() {
-        assertEquals(fstInstance, fstInstance);
-        assertEquals(sndInstance, sndInstance);
-        assertNotEquals(sndInstance, thdInstance);
-    }
-
-    @Test
-    void testHashCode() {
-        assertEquals(fstInstance.getProductID().hashCode(), fstInstance.hashCode());
-    }
-
-    @Test
-    void testToString() {
+    public void testToString() {
         assertEquals("ProductID{product code='Prod1'}", fstInstance.toString());
     }
 

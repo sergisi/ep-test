@@ -2,11 +2,13 @@ package data;
 
 import exceptions.NotAValidValue;
 
-final public class ProductID {
+import javax.xml.crypto.Data;
+
+final public class ProductID implements DataInterface<String> {
 
 
     private final String productID;
-    private static String regex = "(Prod1)|(Prod2)";
+    private static String regex = "(Prod1)|(Prod2)|(Prod3)";
     //TODO : Change regex so it makes sense. Note that tests will have to change accordingly.
 
     public ProductID(String code) throws NotAValidValue {
@@ -39,5 +41,10 @@ final public class ProductID {
     @Override
     public String toString() {
         return "ProductID{" + "product code='" + productID + '\'' + '}';
+    }
+
+    @Override
+    public String getValue() {
+        return getProductID();
     }
 }

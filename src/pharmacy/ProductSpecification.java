@@ -2,7 +2,7 @@ package pharmacy;
 
 import java.math.BigDecimal;
 import data.ProductID;
-import exceptions.EmptyDescriptionException;
+import exceptions.pharmacy.EmptyDescriptionException;
 
 public class ProductSpecification {
     private final ProductID upccode;

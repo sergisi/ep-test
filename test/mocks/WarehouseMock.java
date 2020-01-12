@@ -1,6 +1,6 @@
 package mocks;
 
-import exceptions.InsufficientExistences;
+import exceptions.services.InsufficientExistences;
 import pharmacy.ProductSaleLine;
 import services.Warehouse;
 

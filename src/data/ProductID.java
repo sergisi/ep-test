@@ -1,8 +1,6 @@
 package data;
 
-import exceptions.NotAValidValue;
-
-import javax.xml.crypto.Data;
+import exceptions.data.NotAValidValue;
 
 final public class ProductID implements DataInterface<String> {
 

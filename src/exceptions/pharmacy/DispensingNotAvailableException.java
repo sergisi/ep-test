@@ -1,4 +1,4 @@
-package exceptions;
+package exceptions.pharmacy;
 
 public class DispensingNotAvailableException extends Exception {
     public DispensingNotAvailableException(String s) {

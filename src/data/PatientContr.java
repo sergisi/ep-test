@@ -1,6 +1,6 @@
 package data;
 
-import exceptions.NotAValidValue;
+import exceptions.data.NotAValidValue;
 
 import java.math.BigDecimal;
 

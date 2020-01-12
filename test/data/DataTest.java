@@ -1,6 +1,6 @@
 package data;
 
-import exceptions.NotAValidValue;
+import exceptions.data.NotAValidValue;
 
 public interface DataTest {
     void setUp() throws NotAValidValue;

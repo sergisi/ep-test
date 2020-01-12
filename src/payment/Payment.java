@@ -1,7 +1,7 @@
 package payment;
 
-import exceptions.InsufficientExistences;
-import exceptions.PaymentException;
+import exceptions.services.InsufficientExistences;
+import exceptions.payment.PaymentException;
 import pharmacy.Sale;
 import services.SalesHistory;
 import services.Warehouse;

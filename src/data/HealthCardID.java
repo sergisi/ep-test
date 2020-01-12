@@ -1,6 +1,6 @@
 package data;
 
-import exceptions.NotAValidValue;
+import exceptions.data.NotAValidValue;
 
 final public class HealthCardID implements DataInterface<String>{
 

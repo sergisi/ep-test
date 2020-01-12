@@ -2,8 +2,8 @@ package pharmacy;
 
 import data.PatientContr;
 import data.ProductID;
-import exceptions.NotAValidValue;
-import exceptions.SaleClosedException;
+import exceptions.data.NotAValidValue;
+import exceptions.pharmacy.SaleClosedException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

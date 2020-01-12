@@ -1,6 +1,6 @@
 package payment;
 
-import exceptions.QuantityMinorThanImport;
+import exceptions.payment.QuantityMinorThanImport;
 import pharmacy.Sale;
 import services.SalesHistory;
 import services.Warehouse;

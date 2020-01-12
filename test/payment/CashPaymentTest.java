@@ -2,7 +2,11 @@ package payment;
 
 import data.PatientContr;
 import data.ProductID;
-import exceptions.*;
+import exceptions.data.NotAValidValue;
+import exceptions.payment.PaymentException;
+import exceptions.payment.QuantityMinorThanImport;
+import exceptions.pharmacy.SaleClosedException;
+import exceptions.services.InsufficientExistences;
 import mocks.SalesHistoryMock;
 import mocks.WarehouseMock;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,11 +23,12 @@ class CashPaymentTest {
     WarehouseMock warehouse;
     SalesHistoryMock salesHistory;
     CashPayment cashPayment1, cashPayment2;
+    Sale sale;
 
     @BeforeEach
     void setUp() throws NotAValidValue, SaleClosedException {
         BigDecimal cash = new BigDecimal("6.00");
-        Sale sale = new Sale();
+        sale = new Sale();
         warehouse = new WarehouseMock();
         salesHistory = new SalesHistoryMock();
         PatientContr contr = new PatientContr(new BigDecimal("40"));
@@ -48,8 +53,10 @@ class CashPaymentTest {
     }
 
     @Test
-    void change() throws PaymentException, InsufficientExistences {
+    void change() throws PaymentException, InsufficientExistences, SaleClosedException {
         cashPayment2.pay();
         assertEquals(new BigDecimal("0.900"), cashPayment2.change());
+        CashPayment cashPayment3 = new CashPayment(new BigDecimal("1.000"), sale, warehouse, salesHistory);
+        assertThrows(QuantityMinorThanImport.class, () -> cashPayment3.change());
     }
 }

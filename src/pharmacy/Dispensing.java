@@ -1,10 +1,10 @@
 package pharmacy;
 
 import data.ProductID;
-import exceptions.DispensingNotAvailableException;
-import exceptions.MedicineAlreadyDispencedException;
-import exceptions.MedicineNotInDispensingListException;
-import exceptions.NotAllMedicamentsDispensedException;
+import exceptions.pharmacy.DispensingNotAvailableException;
+import exceptions.pharmacy.MedicineAlreadyDispencedException;
+import exceptions.pharmacy.MedicineNotInDispensingListException;
+import exceptions.services.NotAllMedicamentsDispensedException;
 
 import java.util.Collection;
 import java.util.Date;

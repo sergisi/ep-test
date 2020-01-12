@@ -1,7 +1,13 @@
 package pharmacy;
 
 import data.ProductID;
-import exceptions.*;
+import exceptions.data.NotAValidValue;
+import exceptions.data.PatientIDException;
+import exceptions.data.ProductIDException;
+import exceptions.payment.PaymentException;
+import exceptions.payment.QuantityMinorThanImport;
+import exceptions.pharmacy.*;
+import exceptions.services.*;
 import mocks.HealthCardReaderMock;
 import mocks.NationalHealthMock;
 import mocks.SalesHistoryMock;

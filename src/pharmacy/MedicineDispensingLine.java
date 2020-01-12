@@ -27,10 +27,6 @@ public class MedicineDispensingLine {
         return this.med;
     }
 
-    public void setMed(ProductID med) {
-        this.med = med;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

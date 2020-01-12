@@ -1,8 +1,8 @@
 package pharmacy;
 
 import data.ProductID;
-import exceptions.EmptyDescriptionException;
-import exceptions.NotAValidValue;
+import exceptions.pharmacy.EmptyDescriptionException;
+import exceptions.data.NotAValidValue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

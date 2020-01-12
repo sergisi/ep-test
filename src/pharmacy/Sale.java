@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import data.*;
-import exceptions.SaleClosedException;
+import exceptions.pharmacy.SaleClosedException;
 
 public class Sale {
     private static int currentSaleCode = 0;

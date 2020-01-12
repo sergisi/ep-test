@@ -1,8 +1,8 @@
 package mocks;
 
 import data.HealthCardID;
-import exceptions.HealthCardException;
-import exceptions.NotAValidValue;
+import exceptions.services.HealthCardException;
+import exceptions.data.NotAValidValue;
 import services.HealthCardReader;
 
 public class HealthCardReaderMock implements HealthCardReader {

@@ -1,10 +1,10 @@
 package services;
 
 import data.*;
-import exceptions.ConnectException;
-import exceptions.HealthCardException;
-import exceptions.NotValidePrescriptionException;
-import exceptions.ProductIDException;
+import exceptions.services.ConnectException;
+import exceptions.services.HealthCardException;
+import exceptions.services.NotValidePrescriptionException;
+import exceptions.data.ProductIDException;
 import pharmacy.Dispensing;
 import pharmacy.ProductSpecification;
 
